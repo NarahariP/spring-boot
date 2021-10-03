@@ -1,0 +1,23 @@
+server:
+  port: 9092
+  
+spring:
+  application:
+    name: GATEWAY-SERVICE
+  cloud:
+    gateway:
+      routes:
+      - id: order-service
+        uri: lb://ORDER-SERVICE
+        predicates:
+          - Path=/order/**
+      - id: payment-service
+        uri: lb://PAYMENT-SERVICE
+        predicates:
+          - Path=/payment/**
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 
+          - info
